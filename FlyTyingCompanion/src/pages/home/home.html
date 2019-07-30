@@ -16,10 +16,210 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col class="picture-div" col-12>
+      <ion-col class="logo-div" col-12>
           <img src="/assets/imgs/logo_white_background.jpg"/>
           <hr>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col class="logo-div" col-12>
+        <img src="/assets/imgs/dry_20fliesmay_flies.jpg"/>
+        <hr>
+      </ion-col>
+    </ion-row>
   </ion-grid>
+  <!--<form [formGroup]="formGroup" (ngSubmit)="saveMaterials(formGroup.value)">
+  </form>-->
+  <ion-list>
+    <br>
+    <h4>Head Materials</h4>
+    <ion-item>
+      <ion-label>Head</ion-label>
+      <ion-select [(ngModel)]="head" multiple="true">
+          <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Beads</ion-label>
+      <ion-select [(ngModel)]="beads" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Eye</ion-label>
+      <ion-select [(ngModel)]="eyes" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <br>
+    <h4>Body Materials</h4>
+    <ion-item>
+      <ion-label>Thread</ion-label>
+      <ion-select [(ngModel)]="threads" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Body</ion-label>
+      <ion-select [(ngModel)]="body" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Abdomen</ion-label>
+      <ion-select [(ngModel)]="abdomen" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Hackle</ion-label>
+      <ion-select [(ngModel)]="hackle" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Rib</ion-label>
+      <ion-select [(ngModel)]="rib" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Back</ion-label>
+      <ion-select [(ngModel)]="back" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Thorax</ion-label>
+      <ion-select [(ngModel)]="thorax" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <br>
+    <h4>Tail Materials</h4>
+    <ion-item>
+      <ion-label>Tail</ion-label>
+      <ion-select [(ngModel)]="tail" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <br>
+    <h4>Wing Materials</h4>
+    <ion-item>
+      <ion-label>Wing</ion-label>
+      <ion-select [(ngModel)]="wing" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Wingcase</ion-label>
+      <ion-select [(ngModel)]="wingcase" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Over-Wing</ion-label>
+      <ion-select [(ngModel)]="overwing" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+    <br>
+    <h4>Leg Materials</h4>
+    <ion-item>
+      <ion-label>Legs</ion-label>
+      <ion-select [(ngModel)]="legs" multiple="true">
+        <!--<ion-option *ngFor="let thread of materials.thread" [value]="thread"></ion-option>-->
+        <ion-option>Black</ion-option>
+        <ion-option>Red</ion-option>
+        <ion-option>Green</ion-option>
+        <ion-option>Yellow</ion-option>
+        <ion-option>Orange</ion-option>
+        <ion-option>Purple</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
 </ion-content>
