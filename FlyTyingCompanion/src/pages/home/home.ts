@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 
 @Component({

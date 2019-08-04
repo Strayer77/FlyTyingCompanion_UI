@@ -1,12 +1,24 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Browse Flies</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-header no-border>
+    <ion-navbar color="white" align-title="center">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        <img alt="logo" height="50" src="/assets/imgs/logo_transparent_background.png">
+      </ion-title>
+      <ion-buttons end>
+        <button type="button" ion-button icon-only>
+          <ion-icon name="contact"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
 
 <ion-content>
- 
+  <ion-list>
+    <button ion-item *ngFor="let fly of flies">
+      {{ fly.flyName }}
+    </button>
+  </ion-list>
+
 </ion-content>
