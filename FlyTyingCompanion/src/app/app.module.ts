@@ -16,11 +16,13 @@ import { HttpModule } from '@angular/http';
     MyApp,
     HomePage,
     BrowseFliesPage,
+
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
