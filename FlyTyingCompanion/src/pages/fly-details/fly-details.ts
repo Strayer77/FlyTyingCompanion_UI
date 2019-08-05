@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FlyServiceProvider } from '../../providers/fly-service/fly-service'
 
 /**
  * Generated class for the FlyDetailsPage page.
@@ -16,13 +17,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class FlyDetailsPage {
 
   flyDetails: any;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public flyService: FlyServiceProvider) {
     this.flyDetails = this.navParams.get('fly');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlyDetailsPage');
   }
- 
+
 }

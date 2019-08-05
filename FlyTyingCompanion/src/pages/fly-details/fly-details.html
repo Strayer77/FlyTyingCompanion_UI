@@ -24,7 +24,11 @@
   <ion-card>
       <ion-card-content>
           <div *ngIf="flyDetails">
-            {{flyDetails.flyName}}
+            {{ flyDetails.flyCategory }}
+            <hr>
+            {{ flyDetails.flyName }}
+            <hr>
+            {{flyDetails.image_url}}
           </div>
       </ion-card-content>
     </ion-card>
