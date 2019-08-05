@@ -40,8 +40,6 @@ export class BrowseFliesPage {
     this.navCtrl.push('FlyDetailsPage', {fly: fly});
   }
   
-  getFlyImage(fly) {
-    this.flyService.getFlyDetails
-  }
+  
 
 }
