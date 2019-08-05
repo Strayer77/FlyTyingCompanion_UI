@@ -23,14 +23,15 @@ export class FlyDetailsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public flyService: FlyServiceProvider, public http: Http) {
     this.flyDetails = this.navParams.get('fly');
-    this.flyMaterials = (JSON.stringify(this.flyDetails.materials)); //allows us to read materials nested doc in Fly JSON data
-    this.flyImageURL = "/assets/imgs/FlyPictures/" + (this.flyDetails.image_url);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlyDetailsPage');
-    console.log(this.flyMaterials)
   }
 
+  ionViewCanEnter() {
+    this.flyImageURL = "/assets/imgs/FlyPictures/" + (this.flyDetails.image_url); //creates image url to display on page
+    this.flyMaterials = this.flyDetails.materials; //allows us to read materials nested doc in Fly JSON data
+  }
  
 }

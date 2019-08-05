@@ -12,11 +12,6 @@
       <ion-title>
         <img alt="logo" height="50" src="/assets/imgs/logo_transparent_background.png">
       </ion-title>
-      <ion-buttons end>
-        <button type="button" ion-button icon-only>
-          <ion-icon name="contact"></ion-icon>
-        </button>
-      </ion-buttons>
     </ion-navbar>
   </ion-header>
 
@@ -24,15 +19,38 @@
   <ion-card>
       <ion-card-content>
           <div *ngIf="flyDetails">
-            <h3>{{ flyDetails.flyName }}</h3>
+            <h2 align-center>{{ flyDetails.flyName }}</h2>
             <hr>
-            <p>Fly Category: {{ flyDetails.flyCategory }}</p>
+            <p>Fly Category - {{ flyDetails.flyCategory }}</p>
             <hr>
-            <img src="{{flyImageURL}}"/>
+            <br>
+            <div>
+              <img src="{{flyImageURL}}" class="flyPicture">
+            </div>
           </div>
-          <div>
-            <ion-item>{{flyMaterials}}</ion-item>
-          </div>
-      </ion-card-content>
-    </ion-card>
+        </ion-card-content>
+      </ion-card>
+      <div>
+        <!--List of material items - ngIf only displays materials that actually exist-->
+        <ion-list>
+          <ion-item *ngIf="flyMaterials?.Hook"><p>Hook : {{flyMaterials.Hook}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Thread"><p>Thread :  {{flyMaterials.Thread}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Body"><p>Body : {{flyMaterials.Body}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Head"><p>Head : {{flyMaterials.Head}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Abdomen"><p>Abdomen : {{flyMaterials.Abdomen}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Bead"><p>Bead : {{flyMaterials.Bead}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Eyes"><p>Eyes : {{flyMaterials.Eyes}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Overwing"><p>Overwing : {{flyMaterials.Overwing}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Tail"><p>Tail : {{flyMaterials.Tail}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Wing"><p>Wing : {{flyMaterials.Wing}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Hackle"><p>Hackle : {{flyMaterials.Hackle}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Back"><p>Back : {{flyMaterials.Back}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Rib"><p>Rib : {{flyMaterials.Rib}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Thorax"><p>Thorax : {{flyMaterials.Thorax}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Tag"><p>Tag : {{flyMaterials.Tag}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Legs"><p>Legs : {{flyMaterials.Legs}}</p></ion-item>
+          <ion-item *ngIf="flyMaterials?.Wingcase"><p>Wingcase : {{flyMaterials.Wingcase}}</p></ion-item>
+        </ion-list>
+      </div>
+
 </ion-content>

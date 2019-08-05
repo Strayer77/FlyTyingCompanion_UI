@@ -1,24 +1,24 @@
 <ion-header no-border>
-    <ion-navbar color="white" align-title="center">
+    <ion-navbar color="white" text-center>
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
       <ion-title>
-        <img alt="logo" height="50" src="/assets/imgs/logo_transparent_background.png">
+        <img class="title-image" alt="logo" height="50" src="/assets/imgs/logo_transparent_background.png">
       </ion-title>
-      <ion-buttons end>
-        <button type="button" ion-button icon-only>
-          <ion-icon name="contact"></ion-icon>
-        </button>
-      </ion-buttons>
     </ion-navbar>
   </ion-header>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let fly of flies" (click)="openFlyDetails(fly)">
-      {{ fly.flyName }}
-    </button>
+    <div *ngFor="let fly of flies"> <!--Displays all flies from database-->
+      <button ion-item (click)="openFlyDetails(fly)">
+        <ion-avatar item-left>
+            <img src="/assets/imgs/FlyPictures/{{fly.image_url}}">
+        </ion-avatar>
+        {{ fly.flyName }}
+      </button>
+    </div>
   </ion-list>
 
 </ion-content>
