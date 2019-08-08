@@ -21,7 +21,6 @@ export class BrowseFliesPage {
     this.presentLoadingDefault();
     this.loadFlies();
     this.flyImageURL = "/assets/imgs/FlyPictures/" 
-    this.flyImageURL = this.navParams.get('flyImageURL')
   }
 
   // this presents a loading screen while flies are loaded from server - uses loading controller

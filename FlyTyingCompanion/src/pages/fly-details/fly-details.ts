@@ -27,11 +27,12 @@ export class FlyDetailsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlyDetailsPage');
+    this.flyImageURL = "/assets/imgs/FlyPictures/" + (this.flyDetails.image_url); //creates image url to display on page
+    this.flyMaterials = this.flyDetails.materials; //allows us to read materials nested doc in Fly JSON data
   }
 
   ionViewCanEnter() {
-    this.flyImageURL = "/assets/imgs/FlyPictures/" + (this.flyDetails.image_url); //creates image url to display on page
-    this.flyMaterials = this.flyDetails.materials; //allows us to read materials nested doc in Fly JSON data
+   
   }
  
 }
