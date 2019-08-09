@@ -23,6 +23,7 @@ export class BrowseFliesPage {
     this.flyImageURL = "/assets/imgs/FlyPictures/" 
   }
 
+  
   // this presents a loading screen while flies are loaded from server - uses loading controller
   presentLoadingDefault() {
     let loading = this.loadingCtrl.create({

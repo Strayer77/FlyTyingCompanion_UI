@@ -12,9 +12,10 @@ export class HomePage {
 
    //------------------------------------------------------------------------------------
   //variables for flies after they've been grabbed from database 
-  public flies = [];
+  public flies:Array<any> = [];
   public fly: any;
   public flyObjects: any;
+  public flyImageURL: any;
 
 
   //------------------------------------------------------------------------------------
@@ -35,7 +36,8 @@ export class HomePage {
   wingcaseMats = [];
   overwingMats = [];
   legMats = [];
-  materialsArray = [];
+  
+  public materialsArray:Array<any> = [];
 
  
   //------------------------------------------------------------------------------------
@@ -59,17 +61,7 @@ export class HomePage {
   //------------------------------------------------------------------------------------
   constructor(public navCtrl: NavController, public flyService: FlyServiceProvider) {
 
-    //gets data within promise and adds variable
-    this.getFlies().then(data => {
-      this.flyObjects = data //takes data from our response in the getFlies function and assigns to flyObjects var
-      for(var i = 0; i < this.flyObjects.length; i++){    //iterates through each fly
-        console.log(this.flyObjects[i].materials); //THIS IS WORKING!!!!!!!
-      }
-  
-      //console.log(this.flyObjects)
-      return this.flyObjects;
-    });
-
+    this.flyImageURL = "/assets/imgs/FlyPictures/";
 
     //------------------------------------------------------------------------------------
     //sets up our formgroup with variables from homepage to collect materials
@@ -109,20 +101,12 @@ export class HomePage {
     this.Wingcase = [ "Yellow Foam Rubber", "Black-Dyed Mallard", "Dark Turkey Feather Segment", "Brown Swannundaze", "Light Brown Turkey Feather Fibers", "Olive Plastic Film", "Chocolate Swiss Straw", "Pearl Flashabou", "Mottled Turkey Feather", "Mottled Turkey Feather Segment", "Black Mylar", "Silver Metallic Tinsel", "Pheasant Tail Feather", "Hungarian Partridge Feathers" ]
     this.Overwing = [ "White Hen Hackle", "Olive-Dyed Mallard Flank Feather Fibers", "Deer Hair Tips", "Deer Hair Tip Fibers", "Pearl Krystal Flash Strands", "Black Deer Hair Tips", "Brown-Dyed Rabbit Fur", "Blue Flashabou", "Purple Krystal Flash", "Lavendar Krystal Flash", "Peacock Herl Fibers", "Peacock Eye Feather Fibers", "Brown" ]
     this.Legs = [ "Maxima Brown Kilogram Mono", "Black Fiber", "White Rubber", "Dyed Black Turkey Wing Fibers", "Pearl Microfibbets", "Brown Rubber", "Tan Rubber", "Black Rubber", "Mottled Yellow Tubular Foam", "Mottled Gray Hen Hackles", "Red Brown Goose Biot Fibers", "Olive Nylon", "Olive Hackle Stems", "Black Monocord Pieces", "Pearl Crystal Flashside", "Yellow Rubber", "Nickel Bead Eyes", "Brass Bead Eyes", "Metallic Rainbow Multi-Colored Anodized Tungsten", "Silver-Plated Tungsten" ]
-    //------------------------------------------------------------------------------------
+   
   }
+
 
   //------------------------------------------------------------------------------------
   //gets all the flies from database
-  /*loadFlies() {
-    this.flyService.getFlies()
-    .map(res => res.json()).subscribe(data => {
-      this.flies = data
-      for (const material in this.flies) {
-        console.log(material)
-      }
-    });
-  }*/
   getFlies() {
     return new Promise((resolve, reject) => {
       this.flyService.getFlies().map(res => res.json())
@@ -149,6 +133,20 @@ export class HomePage {
     this.navCtrl.push('FlyDetailsPage', {fly: fly});
   }
 
+
+  //-----------------------------------------------------------------------------------
+  //removes duplicates from an array
+  removeDuplicates(value, index, self) { 
+    return self.indexOf(value) === index;
+  }
+
+  refreshPage() {
+    //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    this.formGroup.reset();
+    this.materialsArray = [];
+    this.flies = [];
+  }
+
   //------------------------------------------------------------------------------------
   //grabs materials that are submitted in form on home page
   logMaterials() {
@@ -164,8 +162,46 @@ export class HomePage {
         return array != null && array != "";
       });
     
-    console.log(this.materialsArray);
-    return this.materialsArray;
+    
+    //-------------------------------------------------------------------
+    //after materials data is gathered - we access data returned from asynchronous call to db
+    //gets data within promise
+    this.getFlies().then(data => {
+      this.flyObjects = data //takes data from our response in the getFlies function and assigns to flyObjects var
+
+
+      //iterates through each fly
+      for(var i = 0; i < this.flyObjects.length; i++){    
+
+        //This grabs all material keys values in the materials nested document
+        let materialValuesArr = Object.keys(this.flyObjects[i].materials).map(key => this.flyObjects[i].materials[key]); 
+
+        //_______________REFACTOR!!!!!!!!________________can be its own function 
+
+        //we now loop through both arrays to check if there are matches
+        //loop through material values that is defined just above
+        for(var x = 0; x < materialValuesArr.length; x++) {
+          
+          //now loop through the array of user input data which is 
+          //matched against the array of materials for each fly
+          //if theres a match - we log the fly object
+          for(var z = 0; z < this.materialsArray.length; z++) {
+
+            if(this.materialsArray[z] === materialValuesArr[x]) {
+              this.flies.push(this.flyObjects[i]);
+              
+            }
+          }
+        }
+      }
+
+      console.log(this.flies);
+      this.flies = this.flies.filter( this.removeDuplicates );
+      this.materialsArray = [];
+      //this.flies = [];
+      
+    });
+
   }
 
 }
