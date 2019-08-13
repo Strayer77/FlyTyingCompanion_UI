@@ -33,9 +33,17 @@ page-home {
         font-family: Raleway-Medium;
     }
     
-    .fly-card {
-        height: 100%;
+    
+    ion-select {
+        .select-icon {
+          .select-icon-inner {
+             color : #AA833B !important;
+          }
+        }
+    }  
+
+    .fly-card-image {
+        border-radius: 2px;
     }
 
-      
 }
