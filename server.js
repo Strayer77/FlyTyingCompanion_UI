@@ -37,4 +37,4 @@ app.use(express.static('www'));
 
 //app listens on port 8080 and a Server Started message is delivered on startup
 //process.env.port will tell us what port it will be assigned to on deployment
-app.listen(process.env.port || 8080, () => console.log("Server Started")) 
+app.listen(process.env.PORT || 8080, () => console.log("Server Started")) 
