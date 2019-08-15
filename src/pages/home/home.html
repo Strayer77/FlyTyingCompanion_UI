@@ -1,0 +1,142 @@
+<ion-header no-border>
+  <ion-navbar color="white">
+    <button color="goldbrown" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+    </ion-title>
+    <ion-buttons end>
+      <button type="button" (click)="showAlert()" ion-button icon-only>
+        <ion-icon color="goldbrown" name="help-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="logo-div" col-12>
+          <img src="/assets/imgs/logo_white_background.jpg"/>
+          <hr>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="logo-div" col-12>
+        <img src="/assets/imgs/dry_20fliesmay_flies.jpg"/>
+        <hr>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!---------------------------------------------------------------------------------------------------------->
+
+
+  <!---------------------------------------------------------------------------------------------------------->
+  <!--<form [formGroup]="formGroup" (ngSubmit)="saveMaterials(formGroup.value)">
+  </form>-->
+  <form [formGroup]="formGroup" #flyForm="ngForm" (ngSubmit)="logMaterials(formGroup.value)">
+    <ion-list>
+      <br>
+      <h4>Add Materials</h4>
+      <ion-item>
+        <ion-label>Head</ion-label>
+        <ion-select formControlName="headMats" multiple="true">
+          <ion-option *ngFor="let headMaterials of Head">{{headMaterials}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Beads</ion-label>
+        <ion-select formControlName="beadMats" multiple="true">
+          <ion-option *ngFor="let beadMaterials of Bead">{{beadMaterials}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Thread</ion-label>
+        <ion-select formControlName="threadMats" multiple="true">
+          <ion-option *ngFor="let threadMaterials of Thread">{{threadMaterials}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Body</ion-label>
+        <ion-select formControlName="bodyMats" multiple="true">
+          <ion-option *ngFor="let bodyMaterials of Body">{{bodyMaterials}}</ion-option>
+        </ion-select>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label>Tail</ion-label>
+        <ion-select formControlName="tailMats" multiple="true">
+          <ion-option *ngFor="let tailMaterials of Tail">{{tailMaterials}}</ion-option>
+        </ion-select>
+      </ion-item>
+     
+      <ion-item>
+        <ion-label>Wing</ion-label>
+        <ion-select formControlName="wingMats" multiple="true">
+          <ion-option *ngFor="let wingMaterials of Wing">{{wingMaterials}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Legs</ion-label>
+        <ion-select formControlName="legMats" multiple="true">
+          <ion-option *ngFor="let legMaterials of Legs">{{legMaterials}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item></ion-item>
+    </ion-list>
+
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+        </ion-col>
+        <ion-col col-6>
+          <button color="goldbrown" ion-button type="submit" block>Submit Materials</button>
+        </ion-col>
+        <ion-col col-3>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-4>
+          <button type="button" ion-button color="goldbrown" (click)="resetForm()" clear>
+            Reset
+            <br>
+            <ion-icon class="ion-padding-end" name="refresh"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+<!---------------------------------------------------------------------------------------------------------->
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let fly of flies">
+        <button  no-lines ion-item (click)="openFlyDetails(fly)">
+          <ion-card class="fly-card">
+            <ion-item class="fly-card-name" text-wrap text-center><p><b>{{ fly.flyName }}</b></p></ion-item>
+            <hr>
+            <ion-card-content>
+              <img class="fly-card-image" src="/assets/imgs/FlyPictures/{{fly.image_url}}"/>
+            </ion-card-content>
+          </ion-card>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <br>
+  <br>
+  <br>
+</ion-content>
+
+
