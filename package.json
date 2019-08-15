@@ -5,7 +5,7 @@
     "node": "10.15.3",
     "npm": "6.4.1"
   },
-  "author": "Ionic Framework",
+  "author": "Matt Strayer",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
@@ -45,5 +45,5 @@
     "dotenv": "^8.0.0",
     "nodemon": "^1.19.1"
   },
-  "description": "An Ionic project"
+  "description": "A web application to aid in fly-tying."
 }

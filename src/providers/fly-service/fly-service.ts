@@ -24,12 +24,12 @@ export class FlyServiceProvider {
     console.log('Hello FlyServiceProvider Provider');
   }
   getFlies() {
-    this.flies = this.http.get('http://localhost:8080/Flies'); 
+    this.flies = this.http.get('process.env.PORT/Flies'); 
     return this.flies
   }
 
   getFlyDetails(id) {
-    this.fly = this.http.get('http://localhost:8080/Flies/' + id)
+    this.fly = this.http.get('process.env.PORT/Flies/' + id)
     return this.fly
   }
 
