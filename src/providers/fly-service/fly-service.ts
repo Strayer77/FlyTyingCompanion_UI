@@ -24,12 +24,13 @@ export class FlyServiceProvider {
     console.log('Hello FlyServiceProvider Provider');
   }
   getFlies() {
-    this.flies = this.http.get('http://localhost:8080/Flies/'); 
+    //this.flies = this.http.get('http://localhost:8080/Flies/'); 
+    this.flies = this.http.get('https://fly-tying-companion-rest-api.herokuapp.com/Flies');
     return this.flies
   }
 
   getFlyDetails(id) {
-    this.fly = this.http.get('http://localhost:8080/Flies/' + id)
+    this.fly = this.http.get('https://fly-tying-companion-rest-api.herokuapp.com/Flies/' + id)
     return this.fly
   }
 
