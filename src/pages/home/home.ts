@@ -6,7 +6,7 @@ import { LoadingController } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import {Content} from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
+
 
 
 
@@ -50,7 +50,7 @@ export class HomePage {
 
   //------------------------------------------------------------------------------------
   constructor(public navCtrl: NavController, public flyService: FlyServiceProvider,
-     public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController) {
+     public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 
     this.flyImageURL = "/assets/imgs/FlyPictures/";
     
@@ -91,15 +91,20 @@ export class HomePage {
     alert.present();
   }
 
+
+
   //------------------------------------------------------------------------------------
-  //toast notification
-  presentToast() {
-    const toast = this.toastCtrl.create({
-      message: 'Flies loaded below...',
-      duration: 1000,
-      position: 'middle',
+  // this presents a loading screen while flies are loaded from server - uses loading controller
+  presentLoadingDefault() {
+    let loading = this.loadingCtrl.create({
+      content: 'Loading Flies...'
     });
-    toast.present();
+  
+    loading.present();
+  
+    setTimeout(() => {
+      loading.dismiss();
+    }, 1600); //1.6 second display time
   }
 
 
@@ -191,6 +196,7 @@ export class HomePage {
         }
       }
       this.flies = this.flies.filter( this.removeDuplicates );
+      this.presentLoadingDefault();
       //console.log(this.flies);
       //materialsArray = [];
       //this.flies = [];
