@@ -7,7 +7,7 @@
     </ion-title>
     <ion-buttons end>
       <button type="button" (click)="showAlert()" ion-button icon-only>
-        <ion-icon color="goldbrown" name="help-circle"></ion-icon>
+        <ion-icon color="goldbrown" name="information-circle-outline"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -88,6 +88,8 @@
       </ion-item>
     </ion-list>
 
+    <!---------------------------------------------------------------------------------------------------------->
+    <!--Buttons-->
 
     <ion-grid>
       <ion-row>
@@ -118,6 +120,7 @@
     </ion-grid>
 
 <!---------------------------------------------------------------------------------------------------------->
+<!--Where the results (flies) from form submisson will load-->
   <ion-grid>
     <ion-row>
       <ion-col col-6 *ngFor="let fly of flies">
