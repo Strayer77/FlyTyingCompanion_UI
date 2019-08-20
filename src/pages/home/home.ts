@@ -162,10 +162,10 @@ export class HomePage {
       //presents loading function if the user has input materials
       // and our materials array is full
       if(materialsArray.length > 0) {
-        this.presentLoadingDefault;
+        this.presentLoadingDefault();
       }
 
-      
+
       //removes null elements from materials array - only left with selected values
       materialsArray = materialsArray.filter(function (array) {
         return array != null && array != "";
