@@ -159,16 +159,17 @@ export class HomePage {
     materialsArray = materialsArray.concat(this.formGroup.value.headMats, this.formGroup.value.beadMats, this.formGroup.value.threadMats,
       this.formGroup.value.bodyMats, this.formGroup.value.tailMats, this.formGroup.value.wingMats, this.formGroup.value.legMats)
 
+      //presents loading function if the user has input materials
+      // and our materials array is full
+      if(materialsArray.length > 0) {
+        this.presentLoadingDefault;
+      }
+
+      
       //removes null elements from materials array - only left with selected values
       materialsArray = materialsArray.filter(function (array) {
         return array != null && array != "";
       });
-    
-    //presents loading function if the user has input materials
-    // and our materials array is full
-    if(materialsArray.length > 0) {
-      this.presentLoadingDefault;
-    }
     
     //-------------------------------------------------------------------
     //after materials data is gathered - we access data returned from asynchronous call to db
