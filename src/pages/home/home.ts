@@ -164,6 +164,11 @@ export class HomePage {
         return array != null && array != "";
       });
     
+    //presents loading function if the user has input materials
+    // and our materials array is full
+    if(materialsArray !== []) {
+      this.presentLoadingDefault;
+    }
     
     //-------------------------------------------------------------------
     //after materials data is gathered - we access data returned from asynchronous call to db
@@ -177,7 +182,7 @@ export class HomePage {
         //This grabs all material keys values in the materials nested document
         let materialValuesArr = Object.keys(this.flyObjects[i].materials).map(key => this.flyObjects[i].materials[key]); 
 
-        //_______________REFACTOR!!!!!!!!________________can be its own function 
+        //needs refactoring
 
         //we now loop through both arrays to check if there are matches
         //loop through material values that is defined just above
@@ -196,7 +201,6 @@ export class HomePage {
         }
       }
       this.flies = this.flies.filter( this.removeDuplicates );
-      this.presentLoadingDefault();
       //console.log(this.flies);
       //materialsArray = [];
       //this.flies = [];
