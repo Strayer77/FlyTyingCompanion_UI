@@ -166,7 +166,7 @@ export class HomePage {
     
     //presents loading function if the user has input materials
     // and our materials array is full
-    if(materialsArray !== []) {
+    if(materialsArray.length > 0) {
       this.presentLoadingDefault;
     }
     
