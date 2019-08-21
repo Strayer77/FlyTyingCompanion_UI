@@ -17,10 +17,12 @@
     </ion-navbar>
   </ion-header>
 
+  <!------------------------------------------------------------------------------------------------------->
+<!--Dynamically Loads all flies from our MongoDB database-->
 <ion-content>
   <ion-list>
     <div *ngFor="let fly of flies"> <!--Displays all flies from database-->
-      <button ion-item (click)="openFlyDetails(fly)">
+      <button ion-item (click)="openFlyDetails(fly)"> <!--allows the user to click on flies and get fly details page-->
         <ion-avatar item-left>
             <img src="/assets/imgs/FlyPictures/{{fly.image_url}}">
         </ion-avatar>
@@ -28,5 +30,4 @@
       </button>
     </div>
   </ion-list>
-
 </ion-content>

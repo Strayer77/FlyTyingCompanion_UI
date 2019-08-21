@@ -3,12 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FlyServiceProvider } from '../../providers/fly-service/fly-service'
 import { Http } from '@angular/http';
 
-/**
- * Generated class for the FlyDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+  //--------------------------------------------------------------------------------------------------
 
 @IonicPage()
 @Component({
@@ -21,9 +17,15 @@ export class FlyDetailsPage {
   flyMaterials: any;
   flyImageURL: any;
 
+
+  //--------------------------------------------------------------------------------------------------
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public flyService: FlyServiceProvider, public http: Http) {
     this.flyDetails = this.navParams.get('fly');
   }
+
+
+  //--------------------------------------------------------------------------------------------------
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlyDetailsPage');
@@ -31,8 +33,5 @@ export class FlyDetailsPage {
     this.flyMaterials = this.flyDetails.materials; //allows us to read materials nested doc in Fly JSON data
   }
 
-  ionViewCanEnter() {
-   
-  }
  
 }

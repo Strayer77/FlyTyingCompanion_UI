@@ -13,6 +13,8 @@
   </ion-navbar>
 </ion-header>
 
+<!------------------------------------------------------------------------------------------------------->
+<!--This contains the html code for the Fly Details Card-->
 <ion-content padding>
   <ion-grid>
     <ion-row justify-content-center align-items-center>
@@ -30,7 +32,9 @@
           </ion-card>
         </div>
         <div>
+          <!------------------------------------------------------------------------------------------------------->
           <!--List of material items - ngIf only displays materials that actually exist-->
+          <!--Dynamically loads all the materials and their categories for each fly by ID-->
           <ion-list>
             <ion-item *ngIf="flyMaterials?.Hook"><p><b>Hook</b> : {{flyMaterials.Hook}}</p></ion-item>
             <ion-item *ngIf="flyMaterials?.Thread"><p><b>Thread</b> :  {{flyMaterials.Thread}}</p></ion-item>

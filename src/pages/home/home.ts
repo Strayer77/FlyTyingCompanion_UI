@@ -184,7 +184,7 @@ export class HomePage {
         //This grabs all material keys values in the materials nested document
         let materialValuesArr = Object.keys(this.flyObjects[i].materials).map(key => this.flyObjects[i].materials[key]); 
 
-        //needs refactoring
+        //needs refactoring---------------------------------------------------------------------
 
         //we now loop through both arrays to check if there are matches
         //loop through material values that is defined just above
