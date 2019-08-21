@@ -5,4 +5,5 @@ The Fly Tying Companion is an app that assists fly fisherman/fly-tyers by allowi
 
 Much like a recipe/cooking application helps you find dishes to make with the unused ingredients you have, the Fly Tying Companion will help you find flies and their patterns with some of the unused fly-tying materials you have left over. 
 
-![](home_page.gif)
+###                             Home Page                       Browse Flies Page
+                            ![](home_page.gif)                  ![](browse_flies.gif)
