@@ -3,7 +3,7 @@
 
 >**[Fly Tying Companion](https://fly-tying-companion.herokuapp.com).**
 
-The Fly Tying Companion is an app that assists fly fisherman/fly-tyers by allowing them to quickly see what flies they can tie based off the materials they've selected in the app. The app will allow a user to input materials they own and then the app will then return the flies they can tie based on the inputs they made. 
+The Fly Tying Companion is an app that assists fly fisherman/fly-tyers by allowing them to quickly see what flies they can tie based off the materials they've selected in the app. The app will allow a user to input materials they own and then the app will then return the flies they can tie based on the inputs they made. The application was built primarily for **mobile** devices, but will work fine on desktops as well. 
 
 **Home Page** | **Browse Flies** | **Fly Details**
 ------------ | ------------- | -------------                  
