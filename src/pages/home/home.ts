@@ -94,22 +94,6 @@ export class HomePage {
 
 
   //------------------------------------------------------------------------------------
-  // this presents a loading screen while flies are loaded from server - uses loading controller
-  presentLoadingDefault() {
-    let loading = this.loadingCtrl.create({
-      content: 'Loading Flies...'
-    });
-  
-    loading.present();
-  
-    setTimeout(() => {
-      loading.dismiss();
-    }, 2500); //2.5 second display time
-  }
-
-
-
-  //------------------------------------------------------------------------------------
   //gets all the flies from database
   getFlies() {
     return new Promise((resolve, reject) => {
@@ -165,8 +149,10 @@ export class HomePage {
       });
     
 
-    //presents loading function if the user has input materials
-    // and our materials array is full
+    //if the array is full of materials from the user input --> continue
+    //will present a loading controller while the app interacts with the API
+    //and grabs the flies. Once flies are loaded into array, the loading controller
+    //disappears and flies are loaded on page
     if( Array.isArray(materialsArray) && materialsArray.length) {
       //this.presentLoadingDefault();
       
@@ -213,7 +199,7 @@ export class HomePage {
       });
     }
     
-    
+    //empties array so user can resumbit with new results
     this.flies = [];
     
   }

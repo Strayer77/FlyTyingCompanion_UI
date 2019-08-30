@@ -23,34 +23,29 @@ export class BrowseFliesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
      public flyService: FlyServiceProvider, public http: Http, public loadingCtrl: LoadingController) {
     // If we navigated to this page, we will have an item available as a nav param
-    this.presentLoadingDefault();
     this.loadFlies();
     this.flyImageURL = "/assets/imgs/FlyPictures/" 
-  }
-
-  //--------------------------------------------------------------------------------------------------
-  // this presents a loading screen while flies are loaded from server - uses loading controller
-  presentLoadingDefault() {
-    let loading = this.loadingCtrl.create({
-      content: 'Loading All Flies...'
-    });
-  
-    loading.present();
-  
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1600); //1.6 second display time
   }
 
 
   //--------------------------------------------------------------------------------------------------
   //this loads all of the flies from our flyService get request to our API
   loadFlies() {
+    //adds a loading controller to page when it's first loaded
+    //until all the flies are loaded on the page
+    let loading = this.loadingCtrl.create({
+      content: 'Loading All Flies...'
+    });
+    //presents loading controller
+    loading.present();
+
     this.flyService.getFlies()  //uses fly service provider and function getFlies()
     .map(res => res.json()).subscribe(data => {
       this.flies = data;
       //console.log(this.flies)
     });
+    //dismisses loading controller after all flies are loaded
+    loading.dismiss();
   }
 
 
