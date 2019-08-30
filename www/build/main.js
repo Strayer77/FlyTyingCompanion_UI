@@ -48,7 +48,7 @@ module.exports = webpackAsyncContext;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_fly_service_fly_service__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -68,15 +68,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 let HomePage = class HomePage {
     //------------------------------------------------------------------------------------
-    constructor(navCtrl, flyService, loadingCtrl, alertCtrl, toastCtrl) {
+    constructor(navCtrl, flyService, loadingCtrl, alertCtrl) {
         this.navCtrl = navCtrl;
         this.flyService = flyService;
         this.loadingCtrl = loadingCtrl;
         this.alertCtrl = alertCtrl;
-        this.toastCtrl = toastCtrl;
         //------------------------------------------------------------------------------------
         //variables for flies after they've been grabbed from database 
         this.flies = [];
@@ -122,14 +120,15 @@ let HomePage = class HomePage {
         alert.present();
     }
     //------------------------------------------------------------------------------------
-    //toast notification
-    presentToast() {
-        const toast = this.toastCtrl.create({
-            message: 'Flies loaded below...',
-            duration: 1000,
-            position: 'middle',
+    // this presents a loading screen while flies are loaded from server - uses loading controller
+    presentLoadingDefault() {
+        let loading = this.loadingCtrl.create({
+            content: 'Loading Flies...'
         });
-        toast.present();
+        loading.present();
+        setTimeout(() => {
+            loading.dismiss();
+        }, 2500); //2.5 second display time
     }
     //------------------------------------------------------------------------------------
     //gets all the flies from database
@@ -173,6 +172,11 @@ let HomePage = class HomePage {
         materialsArray = materialsArray.filter(function (array) {
             return array != null && array != "";
         });
+        //presents loading function if the user has input materials
+        // and our materials array is full
+        if (Array.isArray(materialsArray) && materialsArray.length) {
+            this.presentLoadingDefault();
+        }
         //-------------------------------------------------------------------
         //after materials data is gathered - we access data returned from asynchronous call to db
         //gets data within promise
@@ -182,7 +186,7 @@ let HomePage = class HomePage {
             for (var i = 0; i < this.flyObjects.length; i++) {
                 //This grabs all material keys values in the materials nested document
                 let materialValuesArr = Object.keys(this.flyObjects[i].materials).map(key => this.flyObjects[i].materials[key]);
-                //_______________REFACTOR!!!!!!!!________________can be its own function 
+                //needs refactoring---------------------------------------------------------------------
                 //we now loop through both arrays to check if there are matches
                 //loop through material values that is defined just above
                 for (var x = 0; x < materialValuesArr.length; x++) {
@@ -210,10 +214,10 @@ __decorate([
 ], HomePage.prototype, "content", void 0);
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/Users/Matt/Documents/GitHub/FlyTyingCompanion_UI/src/pages/home/home.html"*/'<ion-header no-border>\n  <ion-navbar color="white">\n    <button color="goldbrown" ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n    </ion-title>\n    <ion-buttons end>\n      <button type="button" (click)="showAlert()" ion-button icon-only>\n        <ion-icon color="goldbrown" name="help-circle"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col class="logo-div" col-12>\n          <img src="/assets/imgs/logo_white_background.jpg"/>\n          <hr>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col class="logo-div" col-12>\n        <img src="/assets/imgs/dry_20fliesmay_flies.jpg"/>\n        <hr>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n  <!---------------------------------------------------------------------------------------------------------->\n\n\n  <!---------------------------------------------------------------------------------------------------------->\n  <!--<form [formGroup]="formGroup" (ngSubmit)="saveMaterials(formGroup.value)">\n  </form>-->\n  <form [formGroup]="formGroup" #flyForm="ngForm" (ngSubmit)="logMaterials(formGroup.value)">\n    <ion-list>\n      <br>\n      <h4>Add Materials</h4>\n      <ion-item>\n        <ion-label>Head</ion-label>\n        <ion-select formControlName="headMats" multiple="true">\n          <ion-option *ngFor="let headMaterials of Head">{{headMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Beads</ion-label>\n        <ion-select formControlName="beadMats" multiple="true">\n          <ion-option *ngFor="let beadMaterials of Bead">{{beadMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Thread</ion-label>\n        <ion-select formControlName="threadMats" multiple="true">\n          <ion-option *ngFor="let threadMaterials of Thread">{{threadMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Body</ion-label>\n        <ion-select formControlName="bodyMats" multiple="true">\n          <ion-option *ngFor="let bodyMaterials of Body">{{bodyMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n    \n      <ion-item>\n        <ion-label>Tail</ion-label>\n        <ion-select formControlName="tailMats" multiple="true">\n          <ion-option *ngFor="let tailMaterials of Tail">{{tailMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n     \n      <ion-item>\n        <ion-label>Wing</ion-label>\n        <ion-select formControlName="wingMats" multiple="true">\n          <ion-option *ngFor="let wingMaterials of Wing">{{wingMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Legs</ion-label>\n        <ion-select formControlName="legMats" multiple="true">\n          <ion-option *ngFor="let legMaterials of Legs">{{legMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n      <ion-item></ion-item>\n    </ion-list>\n\n\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n        </ion-col>\n        <ion-col col-6>\n          <button color="goldbrown" ion-button type="submit" block>Submit Materials</button>\n        </ion-col>\n        <ion-col col-3>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </form>\n  <ion-grid>\n      <ion-row>\n        <ion-col col-4>\n        </ion-col>\n        <ion-col col-4>\n          <button type="button" ion-button color="goldbrown" (click)="resetForm()" clear>\n            Reset\n            <br>\n            <ion-icon class="ion-padding-end" name="refresh"></ion-icon>\n          </button>\n        </ion-col>\n        <ion-col col-4>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n<!---------------------------------------------------------------------------------------------------------->\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 *ngFor="let fly of flies">\n        <button  no-lines ion-item (click)="openFlyDetails(fly)">\n          <ion-card class="fly-card">\n            <ion-item class="fly-card-name" text-wrap text-center><p><b>{{ fly.flyName }}</b></p></ion-item>\n            <hr>\n            <ion-card-content>\n              <img class="fly-card-image" src="/assets/imgs/FlyPictures/{{fly.image_url}}"/>\n            </ion-card-content>\n          </ion-card>\n        </button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n  <br>\n  <br>\n  <br>\n</ion-content>\n\n\n'/*ion-inline-end:"/Users/Matt/Documents/GitHub/FlyTyingCompanion_UI/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/Users/Matt/Documents/GitHub/FlyTyingCompanion_UI/src/pages/home/home.html"*/'<ion-header no-border>\n  <ion-navbar color="white">\n    <button color="goldbrown" ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-buttons end>\n      <button icon-only type="button" (click)="showAlert()" ion-button>\n        <ion-icon color="goldbrown" name="information-circle"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col class="logo-div" col-12>\n          <img src="/assets/imgs/logo_white_background.jpg"/>\n          <hr>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col class="logo-div" col-12>\n        <img src="/assets/imgs/dry_20fliesmay_flies.jpg"/>\n        <hr>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n  <!---------------------------------------------------------------------------------------------------------->\n\n\n  <!---------------------------------------------------------------------------------------------------------->\n  <!--<form [formGroup]="formGroup" (ngSubmit)="saveMaterials(formGroup.value)">\n  </form>-->\n  <form [formGroup]="formGroup" #flyForm="ngForm" (ngSubmit)="logMaterials(formGroup.value)">\n    <ion-list>\n      <br>\n      <h4>Add Materials</h4>\n      <ion-item>\n        <ion-label>Head</ion-label>\n        <ion-select formControlName="headMats" multiple="true">\n          <ion-option *ngFor="let headMaterials of Head">{{headMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Beads</ion-label>\n        <ion-select formControlName="beadMats" multiple="true">\n          <ion-option *ngFor="let beadMaterials of Bead">{{beadMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Thread</ion-label>\n        <ion-select formControlName="threadMats" multiple="true">\n          <ion-option *ngFor="let threadMaterials of Thread">{{threadMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Body</ion-label>\n        <ion-select formControlName="bodyMats" multiple="true">\n          <ion-option *ngFor="let bodyMaterials of Body">{{bodyMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n    \n      <ion-item>\n        <ion-label>Tail</ion-label>\n        <ion-select formControlName="tailMats" multiple="true">\n          <ion-option *ngFor="let tailMaterials of Tail">{{tailMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n     \n      <ion-item>\n        <ion-label>Wing</ion-label>\n        <ion-select formControlName="wingMats" multiple="true">\n          <ion-option *ngFor="let wingMaterials of Wing">{{wingMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Legs</ion-label>\n        <ion-select formControlName="legMats" multiple="true">\n          <ion-option *ngFor="let legMaterials of Legs">{{legMaterials}}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-list>\n\n    <!---------------------------------------------------------------------------------------------------------->\n    <!--Buttons-->\n    <!--Submit Button-->\n\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n        </ion-col>\n        <ion-col col-6>\n          <button color="goldbrown" ion-button type="submit" block>Submit Materials</button>\n        </ion-col>\n        <ion-col col-3>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </form>\n  <!--Reset button-->\n  <!--set outside form to minimize multiple submissions when button is clicked-->\n  <ion-grid>\n    <ion-row>\n      <ion-col col-4>\n      </ion-col>\n      <ion-col col-4>\n        <button type="button" ion-button color="goldbrown" (click)="resetForm()" clear>\n          Reset\n          <br>\n          <ion-icon class="ion-padding-end" name="refresh"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col col-4>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n<!---------------------------------------------------------------------------------------------------------->\n<!--Where the results (flies) from form submisson will load dynamically-->\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 *ngFor="let fly of flies">\n        <button (click)="openFlyDetails(fly)">\n          <ion-card class="fly-card">\n            <ion-item class="fly-card-name" text-wrap text-center><p><b>{{ fly.flyName }}</b></p></ion-item>\n            <hr>\n            <ion-card-content>\n              <img class="fly-card-image" src="/assets/imgs/FlyPictures/{{fly.image_url}}"/>\n            </ion-card-content>\n          </ion-card>\n        </button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n  <br>\n  <br>\n  <br>\n</ion-content>\n\n\n'/*ion-inline-end:"/Users/Matt/Documents/GitHub/FlyTyingCompanion_UI/src/pages/home/home.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__providers_fly_service_fly_service__["a" /* FlyServiceProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */]])
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
 ], HomePage);
 
 //# sourceMappingURL=home.js.map
@@ -226,7 +230,7 @@ HomePage = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BrowseFliesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_fly_service_fly_service__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -243,7 +247,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+//--------------------------------------------------------------------------------------------------
 let BrowseFliesPage = class BrowseFliesPage {
+    //--------------------------------------------------------------------------------------------------
     constructor(navCtrl, navParams, flyService, http, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -256,24 +262,27 @@ let BrowseFliesPage = class BrowseFliesPage {
         this.loadFlies();
         this.flyImageURL = "/assets/imgs/FlyPictures/";
     }
+    //--------------------------------------------------------------------------------------------------
     // this presents a loading screen while flies are loaded from server - uses loading controller
     presentLoadingDefault() {
         let loading = this.loadingCtrl.create({
-            content: 'Loading Flies...'
+            content: 'Loading All Flies...'
         });
         loading.present();
         setTimeout(() => {
             loading.dismiss();
         }, 1600); //1.6 second display time
     }
+    //--------------------------------------------------------------------------------------------------
     //this loads all of the flies from our flyService get request to our API
     loadFlies() {
-        this.flyService.getFlies()
+        this.flyService.getFlies() //uses fly service provider and function getFlies()
             .map(res => res.json()).subscribe(data => {
             this.flies = data;
             //console.log(this.flies)
         });
     }
+    //--------------------------------------------------------------------------------------------------
     //this function opens up a Fly Details page with specific fly info based
     //on that fly's ID
     openFlyDetails(fly) {
@@ -287,7 +296,7 @@ let BrowseFliesPage = class BrowseFliesPage {
 };
 BrowseFliesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-list',template:/*ion-inline-start:"/Users/Matt/Documents/GitHub/FlyTyingCompanion_UI/src/pages/BrowseFlies/BrowseFlies.html"*/'<ion-header no-border>\n    <ion-navbar color="white" text-center>\n      <button color="goldbrown" ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>\n        <img class="title-image" alt="logo" height="50" src="/assets/imgs/logo_transparent_background.png">\n      </ion-title>\n    </ion-navbar>\n  </ion-header>\n\n<ion-content>\n  <ion-list>\n    <div *ngFor="let fly of flies"> <!--Displays all flies from database-->\n      <button ion-item (click)="openFlyDetails(fly)">\n        <ion-avatar item-left>\n            <img src="/assets/imgs/FlyPictures/{{fly.image_url}}">\n        </ion-avatar>\n        {{ fly.flyName }}\n      </button>\n    </div>\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Matt/Documents/GitHub/FlyTyingCompanion_UI/src/pages/BrowseFlies/BrowseFlies.html"*/
+        selector: 'page-list',template:/*ion-inline-start:"/Users/Matt/Documents/GitHub/FlyTyingCompanion_UI/src/pages/BrowseFlies/BrowseFlies.html"*/'<ion-header no-border>\n    <ion-navbar color="white" text-center justify-content-center>\n      <ion-grid>\n        <ion-row>\n          <ion-col col-2>\n            <button color="goldbrown" ion-button menuToggle>\n              <ion-icon name="menu"></ion-icon>\n            </button>\n          </ion-col>\n          <ion-col col-8>\n            <img class="title-image" alt="logo" height="50" src="/assets/imgs/logo_transparent_background.png">\n          </ion-col>\n          <ion-col col-2>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-navbar>\n  </ion-header>\n\n  <!------------------------------------------------------------------------------------------------------->\n<!--Dynamically Loads all flies from our MongoDB database-->\n<ion-content>\n  <ion-list>\n    <div *ngFor="let fly of flies"> <!--Displays all flies from database-->\n      <button ion-item (click)="openFlyDetails(fly)"> <!--allows the user to click on flies and get fly details page-->\n        <ion-avatar item-left>\n            <img src="/assets/imgs/FlyPictures/{{fly.image_url}}">\n        </ion-avatar>\n        {{ fly.flyName }}\n      </button>\n    </div>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/Matt/Documents/GitHub/FlyTyingCompanion_UI/src/pages/BrowseFlies/BrowseFlies.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
         __WEBPACK_IMPORTED_MODULE_3__providers_fly_service_fly_service__["a" /* FlyServiceProvider */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]])
@@ -303,10 +312,13 @@ BrowseFliesPage = __decorate([
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_module__ = __webpack_require__(222);
 
 
-Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
+
+Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* enableProdMode */])();
+Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_module__["a" /* AppModule */]);
 //# sourceMappingURL=main.js.map
 
 /***/ }),
@@ -318,7 +330,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(273);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_BrowseFlies_BrowseFlies__ = __webpack_require__(198);
@@ -385,7 +397,7 @@ AppModule = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(197);
@@ -476,23 +488,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/*
-  Generated class for the FlyServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+//--------------------------------------------------------------------------------------------------
 let FlyServiceProvider = class FlyServiceProvider {
+    //--------------------------------------------------------------------------------------------------
     constructor(http) {
         this.http = http;
         console.log('Hello FlyServiceProvider Provider');
     }
+    //--------------------------------------------------------------------------------------------------
+    //grabs all flies - loads them into flies variable
     getFlies() {
-        this.flies = this.http.get('http://localhost:8080/Flies');
+        //this.flies = this.http.get('http://localhost:8080/Flies/'); 
+        this.flies = this.http.get('https://fly-tying-companion-rest-api.herokuapp.com/Flies');
         return this.flies;
     }
+    //--------------------------------------------------------------------------------------------------
+    //grabs specific fly by ID - loads into fly variable
     getFlyDetails(id) {
-        this.fly = this.http.get('http://localhost:8080/Flies/' + id);
+        this.fly = this.http.get('https://fly-tying-companion-rest-api.herokuapp.com/Flies/' + id);
         return this.fly;
     }
 };
