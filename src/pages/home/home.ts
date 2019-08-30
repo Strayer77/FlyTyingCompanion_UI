@@ -104,7 +104,7 @@ export class HomePage {
   
     setTimeout(() => {
       loading.dismiss();
-    }, 1600); //1.6 second display time
+    }, 2500); //2.5 second display time
   }
 
 
