@@ -168,46 +168,52 @@ export class HomePage {
     //presents loading function if the user has input materials
     // and our materials array is full
     if( Array.isArray(materialsArray) && materialsArray.length) {
-      this.presentLoadingDefault();
-    }
-    
+      //this.presentLoadingDefault();
+      
+      //this allows a loading alert to appear until flies are loaded into the view
+      let loading = this.loadingCtrl.create({
+        content: 'Loading Flies...'
+      });
+      loading.present();
+      //-------------------------------------------------------------------
+      //after materials data is gathered - we access data returned from asynchronous call to db
+      //gets data within promise
+      this.getFlies().then(data => {
+        this.flyObjects = data //takes data from our response in the getFlies function and assigns to flyObjects var
 
-    //-------------------------------------------------------------------
-    //after materials data is gathered - we access data returned from asynchronous call to db
-    //gets data within promise
-    this.getFlies().then(data => {
-      this.flyObjects = data //takes data from our response in the getFlies function and assigns to flyObjects var
+        //iterates through each fly
+        for(var i = 0; i < this.flyObjects.length; i++){    
 
-      //iterates through each fly
-      for(var i = 0; i < this.flyObjects.length; i++){    
+          //This grabs all material keys values in the materials nested document
+          let materialValuesArr = Object.keys(this.flyObjects[i].materials).map(key => this.flyObjects[i].materials[key]); 
 
-        //This grabs all material keys values in the materials nested document
-        let materialValuesArr = Object.keys(this.flyObjects[i].materials).map(key => this.flyObjects[i].materials[key]); 
+          //needs refactoring---------------------------------------------------------------------
 
-        //needs refactoring---------------------------------------------------------------------
+          //we now loop through both arrays to check if there are matches
+          //loop through material values that is defined just above
+          for(var x = 0; x < materialValuesArr.length; x++) {
+            
+            //now loop through the array of user input data which is 
+            //matched against the array of materials for each fly
+            //if theres a match - we log the fly object
+            for(var z = 0; z < materialsArray.length; z++) {
 
-        //we now loop through both arrays to check if there are matches
-        //loop through material values that is defined just above
-        for(var x = 0; x < materialValuesArr.length; x++) {
-          
-          //now loop through the array of user input data which is 
-          //matched against the array of materials for each fly
-          //if theres a match - we log the fly object
-          for(var z = 0; z < materialsArray.length; z++) {
-
-            if(materialsArray[z] === materialValuesArr[x]) {
-              this.flies.push(this.flyObjects[i]);
-              
+              if(materialsArray[z] === materialValuesArr[x]) {
+                this.flies.push(this.flyObjects[i]);
+                
+              }
             }
           }
         }
-      }
-      this.flies = this.flies.filter( this.removeDuplicates );
-      //console.log(this.flies);
-      //materialsArray = [];
-      //this.flies = [];
-      
-    });
+        this.flies = this.flies.filter( this.removeDuplicates );
+        
+        //finally after flies are loaded - dismiss loading icon
+        loading.dismiss();
+    
+      });
+    }
+    
+    
     this.flies = [];
     
   }
